@@ -1,14 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Instagram, Facebook, Palette } from 'lucide-react';
-
+import { Instagram, Facebook, Palette, Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  service: string;
+  message: string;
+  newsletter: boolean;
+};
 
 const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<FormData>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      service: '',
+      message: '',
+      newsletter: false,
+    }
+  });
+
+  const newsletterValue = watch('newsletter');
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,6 +60,31 @@ const Contact: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      toast.success('Message sent successfully!');
+      reset();
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -55,10 +104,10 @@ const Contact: React.FC = () => {
           {/* Left Side: Info */}
           <div className="reveal-item space-y-12">
             <div>
-              <p className="text-sm font-bold mb-1">Manhattan, New York</p>
-              <p className="text-xs text-black/60 font-mono">2023</p>
+              <p className="text-sm font-bold mb-1">Karachi, Pakistan</p>
+              <p className="text-xs text-black/60 font-mono">2026</p>
             </div>
-
+            
             <div>
               <p className="text-sm font-bold mb-1">Office hours</p>
               <p className="text-xs text-black/60">Monday - Friday</p>
@@ -68,23 +117,25 @@ const Contact: React.FC = () => {
 
           {/* Right Side: Form */}
           <div className="reveal-item">
-            <form className="space-y-10" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-10" onSubmit={handleSubmit(onSubmit)}>
               {/* Name Row */}
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Name (required)</label>
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-2">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm placeholder:text-black/30"
+                    <input 
+                      {...register('firstName', { required: true })}
+                      type="text" 
+                      placeholder="First Name" 
+                      className={`w-full bg-transparent border-b ${errors.firstName ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm placeholder:text-black/30`}
                     />
                   </div>
                   <div className="space-y-2">
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm placeholder:text-black/30"
+                    <input 
+                      {...register('lastName', { required: true })}
+                      type="text" 
+                      placeholder="Last Name" 
+                      className={`w-full bg-transparent border-b ${errors.lastName ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm placeholder:text-black/30`}
                     />
                   </div>
                 </div>
@@ -94,7 +145,10 @@ const Contact: React.FC = () => {
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Service</label>
                 <div className="relative">
-                  <select className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm appearance-none cursor-pointer">
+                  <select 
+                    {...register('service')}
+                    className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm appearance-none cursor-pointer"
+                  >
                     <option value="">Select a service</option>
                     <option value="manufacturing">Manufacturing Optimization</option>
                     <option value="utilities">Utilities Analysis</option>
@@ -112,34 +166,46 @@ const Contact: React.FC = () => {
               {/* Email Field */}
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Email (required)</label>
-                <input
-                  type="email"
-                  className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm"
+                <input 
+                  {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+                  type="email" 
+                  className={`w-full bg-transparent border-b ${errors.email ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm`}
                 />
               </div>
 
               {/* Newsletter Checkbox */}
-              <div className="flex items-center gap-3 group cursor-pointer">
-                <div className="w-4 h-4 border border-black/30 rounded-full flex items-center justify-center transition-colors group-hover:border-black">
-                  <div className="w-1.5 h-1.5 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div 
+                className="flex items-center gap-3 group cursor-pointer"
+                onClick={() => setValue('newsletter', !newsletterValue)}
+              >
+                <div className={`w-4 h-4 border border-black/30 rounded-full flex items-center justify-center transition-colors ${newsletterValue ? 'border-black' : 'group-hover:border-black'}`}>
+                  <div className={`w-1.5 h-1.5 bg-black rounded-full transition-opacity ${newsletterValue ? 'opacity-100' : 'opacity-0'}`} />
                 </div>
+                <input type="checkbox" className="hidden" {...register('newsletter')} />
                 <span className="text-xs text-black/60 group-hover:text-black transition-colors">Sign up for news and updates</span>
               </div>
 
               {/* Project Description */}
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Project description</label>
-                <textarea
-                  className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm resize-none h-24"
+                <textarea 
+                  {...register('message', { required: true })}
+                  className={`w-full bg-transparent border-b ${errors.message ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm resize-none h-24`}
                 />
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="bg-black text-white px-12 py-3 rounded-full text-xs font-bold hover:bg-editorial-red transition-colors duration-300"
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="bg-black text-white px-12 py-3 rounded-full text-xs font-bold hover:bg-editorial-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]"
               >
-                Submit
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={14} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : 'Submit'}
               </button>
             </form>
           </div>
@@ -165,7 +231,7 @@ const Contact: React.FC = () => {
             <p className="text-[10px] font-bold uppercase tracking-widest">Karachi, Pakistan</p>
             <p className="text-[10px] text-black/40 font-mono">2026</p>
           </div>
-
+          
           <div className="space-y-2">
             <p className="text-[10px] font-bold uppercase tracking-widest">Office hours</p>
             <p className="text-[10px] text-black/40">Monday - Friday 11 AM - 2 PM</p>
@@ -184,7 +250,7 @@ const Contact: React.FC = () => {
             </div>
             <div className="flex items-center gap-6">
               <a href="#" className="text-[10px] text-black/40 hover:text-black transition-colors uppercase tracking-widest">Privacy Policy</a>
-              <p className="text-[10px] text-black/40 uppercase tracking-widest">© 2023 Template by Pradulis Studio</p>
+              <p className="text-[10px] text-black/40 uppercase tracking-widest">© 2026 Shahood Saleem</p>
             </div>
           </div>
         </div>
