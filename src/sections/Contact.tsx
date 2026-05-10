@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Instagram, Facebook, Palette } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
