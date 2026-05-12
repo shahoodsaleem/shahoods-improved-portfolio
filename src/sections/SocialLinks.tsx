@@ -1,12 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Instagram, Github, Palette } from 'lucide-react';
+import { Linkedin, Instagram, MessageCircle } from 'lucide-react';
 
+// ─── Update these URLs with your real profile links ───────────────────────────
 const socials = [
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
-  { name: 'GitHub', icon: Github, href: '#' },
-  { name: 'Behance', icon: Palette, href: '#' },
+  {
+    name: 'LinkedIn',
+    icon: Linkedin,
+    href: 'https://www.linkedin.com/in/shahoodsaleem',
+  },
+  {
+    name: 'Instagram',
+    icon: Instagram,
+    href: 'https://www.instagram.com/shahoodsaleem',
+  },
+  {
+    name: 'WhatsApp',
+    icon: MessageCircle,
+    href: 'https://wa.me/923363791538',
+  },
 ];
 
 const SocialLinks: React.FC = () => {
@@ -21,6 +33,8 @@ const SocialLinks: React.FC = () => {
         <motion.a
           key={social.name}
           href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative flex items-center justify-center w-8 h-8 text-editorial-black opacity-40 hover:opacity-100 transition-opacity duration-500"
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 0.4, x: 0 }}

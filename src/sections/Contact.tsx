@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<FormData>({
     defaultValues: {
       firstName: '',
@@ -107,7 +107,7 @@ const Contact: React.FC = () => {
               <p className="text-sm font-bold mb-1">Karachi, Pakistan</p>
               <p className="text-xs text-black/60 font-mono">2026</p>
             </div>
-            
+
             <div>
               <p className="text-sm font-bold mb-1">Office hours</p>
               <p className="text-xs text-black/60">Monday - Friday</p>
@@ -123,18 +123,18 @@ const Contact: React.FC = () => {
                 <label className="text-sm font-bold block">Name (required)</label>
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-2">
-                    <input 
+                    <input
                       {...register('firstName', { required: true })}
-                      type="text" 
-                      placeholder="First Name" 
+                      type="text"
+                      placeholder="First Name"
                       className={`w-full bg-transparent border-b ${errors.firstName ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm placeholder:text-black/30`}
                     />
                   </div>
                   <div className="space-y-2">
-                    <input 
+                    <input
                       {...register('lastName', { required: true })}
-                      type="text" 
-                      placeholder="Last Name" 
+                      type="text"
+                      placeholder="Last Name"
                       className={`w-full bg-transparent border-b ${errors.lastName ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm placeholder:text-black/30`}
                     />
                   </div>
@@ -145,15 +145,16 @@ const Contact: React.FC = () => {
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Service</label>
                 <div className="relative">
-                  <select 
+                  <select
                     {...register('service')}
                     className="w-full bg-transparent border-b border-black/20 py-2 focus:border-black transition-colors outline-none text-sm appearance-none cursor-pointer"
                   >
                     <option value="">Select a service</option>
-                    <option value="manufacturing">Manufacturing Optimization</option>
-                    <option value="utilities">Utilities Analysis</option>
+                    <option value="job">Job Discussion</option>
+                    <option value="service">Service Enquiry</option>
                     <option value="product">Product Development</option>
                     <option value="ai">AI Integration</option>
+                    <option value="other">Other</option>
                   </select>
                   <div className="absolute right-0 bottom-3 pointer-events-none">
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -166,15 +167,15 @@ const Contact: React.FC = () => {
               {/* Email Field */}
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Email (required)</label>
-                <input 
+                <input
                   {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-                  type="email" 
+                  type="email"
                   className={`w-full bg-transparent border-b ${errors.email ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm`}
                 />
               </div>
 
               {/* Newsletter Checkbox */}
-              <div 
+              <div
                 className="flex items-center gap-3 group cursor-pointer"
                 onClick={() => setValue('newsletter', !newsletterValue)}
               >
@@ -188,15 +189,15 @@ const Contact: React.FC = () => {
               {/* Project Description */}
               <div className="space-y-4">
                 <label className="text-sm font-bold block">Project description</label>
-                <textarea 
+                <textarea
                   {...register('message', { required: true })}
                   className={`w-full bg-transparent border-b ${errors.message ? 'border-red-500' : 'border-black/20'} py-2 focus:border-black transition-colors outline-none text-sm resize-none h-24`}
                 />
               </div>
 
               {/* Submit Button */}
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubmitting}
                 className="bg-black text-white px-12 py-3 rounded-full text-xs font-bold hover:bg-editorial-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]"
               >
@@ -231,7 +232,7 @@ const Contact: React.FC = () => {
             <p className="text-[10px] font-bold uppercase tracking-widest">Karachi, Pakistan</p>
             <p className="text-[10px] text-black/40 font-mono">2026</p>
           </div>
-          
+
           <div className="space-y-2">
             <p className="text-[10px] font-bold uppercase tracking-widest">Office hours</p>
             <p className="text-[10px] text-black/40">Monday - Friday 11 AM - 2 PM</p>
