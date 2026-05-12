@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../sections/Navigation';
-import { type Project, fetchProjectBySlug } from '../data/projects';
+import { type Project, type ProjectImage, fetchProjectBySlug } from '../data/projects';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 // ─── Image Slideshow ──────────────────────────────────────────────────────────
 interface SlideshowProps {
-  images: { src: string; alt: string }[];
+  images: ProjectImage[];
 }
 
 const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
@@ -62,7 +62,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
         >
           {images && images[current]?.src ? (
             <img
-              src={images[current].src}
+              src={images[current].src!}
               alt={images[current].alt}
               className="w-full h-full object-cover"
             />
