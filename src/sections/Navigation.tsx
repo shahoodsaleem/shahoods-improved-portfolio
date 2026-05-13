@@ -15,9 +15,17 @@ const Navigation: React.FC = () => {
   // ── Scroll-aware logic ────────────────────────────────────────────────────
   useEffect(() => {
     const checkPosition = () => {
-      setIsScrolled(window.scrollY > 100);
+      const isProjectDetail = location.pathname.startsWith('/projects/');
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 100);
 
-      // Only run colour-inversion logic on the home page
+      // If we're on a project detail page and at the top, we're over the dark hero
+      if (isProjectDetail && scrollY < window.innerHeight * 0.7) {
+        setIsOnDark(true);
+        return;
+      }
+
+      // Only run colour-inversion logic on the home page for sections
       if (!isHome) {
         setIsOnDark(false);
         return;

@@ -48,7 +48,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[#111]">
+    <div className="relative w-full h-full overflow-hidden bg-[#111]">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={current}
@@ -109,7 +109,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
 
       {/* Dot indicators */}
       {images && images.length > 1 && (
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-8 right-6 md:right-12 lg:right-20 z-40 flex gap-2">
           {images.map((_, i) => (
             <button
               key={i}
@@ -199,60 +199,62 @@ const ProjectDetail: React.FC = () => {
     <div className="min-h-screen" style={{ backgroundColor: '#F3F3F0' }}>
       <Navigation />
 
-      {/* ── Slideshow ── */}
-      <div className="pt-16 md:pt-20">
+      {/* ── Hero Section (Slideshow + Overlay Text) ── */}
+      <div className="relative w-full h-[90vh] md:h-screen overflow-hidden">
         <Slideshow images={project.images} />
-      </div>
 
-      {/* ── Project Meta ── */}
-      <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 pt-14 pb-4">
-        {/* Back link */}
-        <motion.button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-editorial-black/40 text-xs font-mono tracking-widest uppercase hover:text-editorial-black transition-colors mb-10 group"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transform group-hover:-translate-x-1 transition-transform duration-300">
-            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          All Work
-        </motion.button>
+        {/* Overlay Content */}
+        <div className="absolute inset-0 z-30 flex flex-col justify-end bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/30 to-transparent">
+          <div className="w-full px-6 md:px-12 lg:px-20 xl:px-32 pb-16 md:pb-24">
+            {/* Back link */}
+            <motion.button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 text-white/50 text-xs font-mono tracking-widest uppercase hover:text-white transition-colors mb-8 group"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transform group-hover:-translate-x-1 transition-transform duration-300">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              All Work
+            </motion.button>
 
-        {/* Category + Year */}
-        <motion.div
-          className="flex items-center gap-4 mb-5"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-        >
-          <span className="text-editorial-red text-xs font-medium tracking-widest uppercase">
-            {project.category}
-          </span>
-          <span className="text-editorial-black/30 text-xs font-mono">—</span>
-          <span className="text-editorial-black/40 text-xs font-mono">{project.year}</span>
-        </motion.div>
+            {/* Category + Year */}
+            <motion.div
+              className="flex items-center gap-4 mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease }}
+            >
+              <span className="text-editorial-red text-xs font-medium tracking-widest uppercase">
+                {project.category}
+              </span>
+              <span className="text-white/30 text-xs font-mono">—</span>
+              <span className="text-white/40 text-xs font-mono">{project.year}</span>
+            </motion.div>
 
-        {/* Title */}
-        <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-editorial-black tracking-tight leading-[1.0] mb-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease }}
-        >
-          {project.title}
-        </motion.h1>
+            {/* Title */}
+            <motion.h1
+              className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[0.9] mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.15, ease }}
+            >
+              {project.title}
+            </motion.h1>
 
-        {/* Short description */}
-        <motion.p
-          className="text-editorial-black/50 text-lg md:text-xl leading-relaxed max-w-2xl mt-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease }}
-        >
-          {project.description}
-        </motion.p>
+            {/* Short description */}
+            <motion.p
+              className="text-white/70 text-lg md:text-2xl leading-relaxed max-w-3xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.25, ease }}
+            >
+              {project.description}
+            </motion.p>
+          </div>
+        </div>
       </div>
 
       {/* ── Divider ── */}
