@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from '../../../sections/Navigation'
@@ -63,10 +64,12 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
           className="absolute inset-0 flex items-center justify-center"
         >
           {images && images[current]?.src ? (
-            <img
+            <Image
               src={images[current].src!}
-              alt={images[current].alt}
-              className="w-full h-full object-cover"
+              alt={images[current].alt || "Project Image"}
+              fill
+              className="object-cover"
+              priority={current === 0}
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center bg-[#111] select-none">

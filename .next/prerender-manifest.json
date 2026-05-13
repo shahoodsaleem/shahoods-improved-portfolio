@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "de5fa456d9cc6cbe467fecbc922f11f6",
-    "previewModeSigningKey": "06989d8e227f5b3b502d552522298acffde1e2704ad4835c52160ab661e73b77",
-    "previewModeEncryptionKey": "786299d64c3c594e64b1050663056def4f4d9cf75eb92e10114ee80dbb6ef4fa"
-  }
-}
+{"version":4,"routes":{"/projects/advanced-manufacturing-process-analysis":{},"/projects/local-ai-technical-workflows":{},"/projects/prototype-development":{},"/projects/plant-hazard-safety-studies":{},"/projects/pakistan-energy-infrastructure-report":{}},"dynamicRoutes":{"/projects/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/projects/[slug]","routeRegex":"^\\/projects\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"4cb82a47a9d91b48cd3a26961a6e0916","previewModeSigningKey":"0f9e7f756159d33dfc14d801d8f0c9382a543bc6bc2d9bd985f34de3568d6041","previewModeEncryptionKey":"36ef7e65eee25caf9802d0318bc24ab632a3db30442b50d9e1168ed05127c24f"}}

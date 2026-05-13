@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
@@ -82,13 +83,16 @@ const Hero: React.FC = () => {
         ref={portraitRef}
         className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-center pointer-events-none h-[75vh] md:h-[85vh] lg:h-[90vh]"
       >
-        <img
+        <Image
           src="/images/portrait_2.jpeg"
           alt="Shahood Saleem"
+          width={800}
+          height={1200}
           className="h-full w-auto object-contain object-bottom"
           style={{
             filter: 'grayscale(100%) contrast(1.1) brightness(0.95)',
           }}
+          priority
         />
       </div>
 

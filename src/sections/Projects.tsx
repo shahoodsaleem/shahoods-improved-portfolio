@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import Image from 'next/image'
 import { type Project, fetchFeaturedProjects } from '../data/projects'
 
 
@@ -142,7 +143,12 @@ const Projects: React.FC = () => {
                 {/* Hover Image Preview */}
                 <div className="absolute right-[20%] top-1/2 -translate-y-1/2 w-48 aspect-[3/4] opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none overflow-hidden hidden lg:block transform group-hover:scale-110 group-hover:-rotate-3">
                   {project.images && project.images[0]?.src ? (
-                    <img src={project.images[0].src} className="w-full h-full object-cover grayscale" alt="" />
+                    <Image
+                      src={project.images[0].src}
+                      alt={project.title}
+                      fill
+                      className="object-cover grayscale"
+                    />
                   ) : (
                     <div className="w-full h-full bg-black/5 border border-black/10" />
                   )}

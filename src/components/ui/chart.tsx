@@ -115,9 +115,9 @@ function ChartTooltipContent({
   labelFormatter,
   labelClassName,
   formatter,
+  color,
+  nameKey,
   labelKey,
-  payload,
-  label,
 }: Omit<React.ComponentProps<typeof RechartsPrimitive.Tooltip>, "payload" | "label"> &
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
@@ -261,7 +261,7 @@ function ChartLegendContent({
   verticalAlign = "bottom",
   nameKey,
 }: React.ComponentProps<"div"> &
-  Omit<Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign">, "payload"> & {
+  Omit<React.ComponentProps<typeof RechartsPrimitive.Legend>, "payload"> & {
     hideIcon?: boolean
     nameKey?: string
     payload?: any[]

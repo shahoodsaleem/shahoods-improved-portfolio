@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navigation from '../../sections/Navigation'
 import { type Project, fetchAllProjects } from '../../data/projects'
@@ -58,10 +59,11 @@ const ProjectAccordionItem: React.FC<{
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 pt-4">
               <div className="w-full lg:w-1/2 aspect-[16/9] bg-editorial-black/5 relative overflow-hidden group/img">
                 {project.images && project.images[0]?.src ? (
-                  <img
+                  <Image
                     src={project.images[0].src}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover/img:scale-105"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center border border-black/5">
