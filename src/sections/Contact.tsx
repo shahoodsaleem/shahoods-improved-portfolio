@@ -1,4 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react'
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Instagram, Facebook, Palette, Loader2 } from 'lucide-react';

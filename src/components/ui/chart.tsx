@@ -115,16 +115,18 @@ function ChartTooltipContent({
   labelFormatter,
   labelClassName,
   formatter,
-  color,
-  nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+  payload,
+  label,
+}: Omit<React.ComponentProps<typeof RechartsPrimitive.Tooltip>, "payload" | "label"> &
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
     hideIndicator?: boolean
     indicator?: "line" | "dot" | "dashed"
     nameKey?: string
     labelKey?: string
+    payload?: any[]
+    label?: any
   }) {
   const { config } = useChart()
 
@@ -259,9 +261,10 @@ function ChartLegendContent({
   verticalAlign = "bottom",
   nameKey,
 }: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+  Omit<Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign">, "payload"> & {
     hideIcon?: boolean
     nameKey?: string
+    payload?: any[]
   }) {
   const { config } = useChart()
 

@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+'use client'
+
+import React, { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { Linkedin, Instagram, MessageCircle } from 'lucide-react';
@@ -157,7 +159,7 @@ const Hero: React.FC = () => {
         className="absolute bottom-12 md:bottom-16 right-6 md:right-12 lg:right-16 z-40 text-right"
       >
         <div className="subtitle-line text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-editorial-black leading-[1.1]">
-          <span className="text-editorial-black/40 mr-2 text-xl md:text-3xl">//</span>
+          <span className="text-editorial-black/40 mr-2 text-xl md:text-3xl">{'//'}</span>
           Industrial &amp;
         </div>
         <div className="subtitle-line text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-editorial-black leading-[1.1]">

@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router';
-import { type Project, fetchFeaturedProjects } from '../data/projects';
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Link from 'next/link'
+import { type Project, fetchFeaturedProjects } from '../data/projects'
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,7 +89,7 @@ const Projects: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="space-y-4">
               <span className="text-editorial-red text-xs font-mono tracking-[0.3em] uppercase block">
-                // Selected Works
+                {'//'} Selected Works
               </span>
               <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-editorial-black leading-[0.85]">
                 Engineering <br /> Portfolio.
@@ -108,7 +111,7 @@ const Projects: React.FC = () => {
             featuredProjects.map((project) => (
               <Link
                 key={project._id}
-                to={`/projects/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 className="project-row group block relative py-12 md:py-16 border-b border-black/10 transition-colors hover:bg-black/[0.02]"
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
@@ -156,7 +159,7 @@ const Projects: React.FC = () => {
         {/* View All CTA */}
         <div className="mt-20 flex justify-end">
           <Link
-            to="/projects"
+            href="/projects"
             className="group flex items-center gap-4 text-editorial-black font-bold text-sm tracking-[0.2em] uppercase hover:text-editorial-red transition-colors"
           >
             <span>View all work</span>

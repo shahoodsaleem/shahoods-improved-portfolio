@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+'use client'
+
+import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -182,13 +184,13 @@ const Intro: React.FC = () => {
           <div ref={labelRef} className="lg:w-1/4 flex-shrink-0">
             <div className="flex flex-col gap-3">
               <span className="text-editorial-red text-xs font-medium tracking-widest uppercase">
-                // Intro
+                {'//'} Intro
               </span>
               <span className="text-editorial-cream/40 text-xs font-medium tracking-widest uppercase">
-                // Philosophy
+                {'//'} Philosophy
               </span>
               <span className="text-editorial-cream/40 text-xs font-medium tracking-widest uppercase">
-                // Engineering Mindset
+                {'//'} Engineering Mindset
               </span>
             </div>
           </div>

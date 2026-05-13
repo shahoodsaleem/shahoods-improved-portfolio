@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+'use client'
+
+import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -146,10 +148,10 @@ const Expertise: React.FC = () => {
         <div ref={headerRef} className="mb-16 md:mb-24">
           <div className="flex items-center gap-6 mb-6">
             <span className="text-editorial-red text-xs font-medium tracking-widest uppercase">
-              // Expertise
+              {'//'} Expertise
             </span>
             <span className="text-editorial-cream/40 text-xs font-medium tracking-widest uppercase">
-              // Capabilities
+              {'//'} Capabilities
             </span>
           </div>
           <div className="hairline" style={{ color: '#F3F3F0' }} />
